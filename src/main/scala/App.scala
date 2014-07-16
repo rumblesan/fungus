@@ -1,4 +1,4 @@
-package com.rumblesan.fungus
+package com.rumblesan
 
 import processing.core._
 
