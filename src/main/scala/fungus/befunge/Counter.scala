@@ -1,4 +1,4 @@
-package com.rumblesan.examples.befunge
+package com.rumblesan.fungus.befunge
 
 import scalaz._, Scalaz._
 
