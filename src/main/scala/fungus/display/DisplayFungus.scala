@@ -1,11 +1,14 @@
 package com.rumblesan.fungus.display
 
 import com.rumblesan.fungus.befunge.{ VM }
+import com.rumblesan.fungus.{ FungusMachine }
 import processing.core.{ PApplet, PConstants }
 
-object DisplayVM {
+object DisplayFungus {
 
-  def draw(p: PApplet, config: DrawingConfig)(vm: VM): Unit = {
+  def draw(p: PApplet, config: DrawingConfig)(f: FungusMachine): Unit = {
+
+    val vm = f.vm
 
     p.fill(200, 200, 200)
     for {
@@ -15,9 +18,17 @@ object DisplayVM {
       _ = p.rect(xCoord, yCoord, config.cellSize, config.cellSize)
     } yield Unit
 
+    drawCursor(p, config)(f)
+
+  }
+
+  def drawCursor(p: PApplet, config: DrawingConfig)(f: FungusMachine): Unit = {
+
+    val cursor = f.cursor
+
     p.fill(255, 50, 50)
-    val (counterX, counterY) = cellCoords(config)(vm.counter.xPos, vm.counter.yPos)
-    p.rect(counterX, counterY, config.cellSize, config.cellSize)
+    val (cursorX, cursorY) = cellCoords(config)(f.cursor.x, f.cursor.y)
+    p.rect(cursorX, cursorY, config.cellSize, config.cellSize)
 
   }
 
