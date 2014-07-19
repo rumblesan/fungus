@@ -6,8 +6,10 @@ import processing.core.PApplet
 import processing.core.PConstants._
 
 import com.rumblesan.reaktor._
-import com.rumblesan.fungus.display.{ DisplayVM, DrawingConfig }
-import com.rumblesan.fungus.befunge.{ VM, Types, Counter }
+import com.rumblesan.fungus.display.{ DisplayFungus, DrawingConfig }
+import com.rumblesan.fungus.befunge.{ VM, Counter }
+import com.rumblesan.fungus.befunge.Types._
+import com.rumblesan.fungus.Types._
 
 
 class Fungus extends PApplet {
@@ -24,27 +26,15 @@ class Fungus extends PApplet {
     (screenHeight - (gridYSize * gridCellSize)) / 2
   )
 
-  val vmStateSink = StateSink[KeyPress, VM]((vm, k) => {
+  val vmStateSink = StateSink[KeyPress, FungusMachine]((f, k) => {
     (k match {
-      case UpKey    => (for {
-                         _ <- Counter.updateCounter(Types.North)
-                         _ <- Counter.moveCounter
-                       } yield Unit)
-      case DownKey  => (for {
-                         _ <- Counter.updateCounter(Types.South)
-                         _ <- Counter.moveCounter
-                       } yield Unit)
-      case RightKey => (for {
-                         _ <- Counter.updateCounter(Types.East)
-                         _ <- Counter.moveCounter
-                       } yield Unit)
-      case LeftKey  => (for {
-                         _ <- Counter.updateCounter(Types.West)
-                         _ <- Counter.moveCounter
-                       } yield Unit)
-      case _        => ().point[Types.VMState]
-    }).exec(vm)
-  }, VM(gridXSize, gridYSize))
+      case UpKey    => Cursor.moveCursor("up")
+      case DownKey  => Cursor.moveCursor("up")
+      case RightKey => Cursor.moveCursor("up")
+      case LeftKey  => Cursor.moveCursor("up")
+      case _        => ().point[FungusState]
+    }).exec(f)
+  }, FungusMachine(VM(gridXSize, gridYSize), Cursor(0, 0)))
 
 
   override def setup {
@@ -58,7 +48,7 @@ class Fungus extends PApplet {
 
   override def draw {
 
-    DisplayVM.draw(this, drawingConfig)(vmStateSink.getState)
+    DisplayFungus.draw(this, drawingConfig)(vmStateSink.getState)
 
   }
 
