@@ -8,6 +8,14 @@ object DisplayFungus {
 
   def draw(p: PApplet, config: DrawingConfig)(f: FungusMachine): Unit = {
 
+    drawGrid(p, config)(f)
+
+    drawCursor(p, config)(f)
+
+  }
+
+  def drawGrid(p: PApplet, config: DrawingConfig)(f: FungusMachine): Unit = {
+
     val vm = f.vm
 
     p.fill(200, 200, 200)
@@ -17,8 +25,6 @@ object DisplayFungus {
       (xCoord, yCoord) = cellCoords(config)(x, y)
       _ = p.rect(xCoord, yCoord, config.cellSize, config.cellSize)
     } yield Unit
-
-    drawCursor(p, config)(f)
 
   }
 
