@@ -29,9 +29,9 @@ class Fungus extends PApplet {
   val vmStateSink = StateSink[KeyPress, FungusMachine]((f, k) => {
     (k match {
       case UpKey    => Cursor.moveCursor("up")
-      case DownKey  => Cursor.moveCursor("up")
-      case RightKey => Cursor.moveCursor("up")
-      case LeftKey  => Cursor.moveCursor("up")
+      case DownKey  => Cursor.moveCursor("down")
+      case RightKey => Cursor.moveCursor("right")
+      case LeftKey  => Cursor.moveCursor("left")
       case _        => ().point[FungusState]
     }).exec(f)
   }, FungusMachine(VM(gridXSize, gridYSize), Cursor(0, 0)))
