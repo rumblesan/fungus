@@ -41,7 +41,7 @@ object DisplayFungus {
 
       val cursor = f.cursor
       p.fill(255, 50, 50)
-      val canvasCoords = calculateCanvasCoords(config)(GridCoord(f.cursor.x, f.cursor.y))
+      val canvasCoords = calculateCanvasCoords(config)(f.cursor.coords)
       p.rect(canvasCoords.x, canvasCoords.y, config.cellSize, config.cellSize)
 
     })

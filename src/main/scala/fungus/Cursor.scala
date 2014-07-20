@@ -4,8 +4,10 @@ import scalaz._, Scalaz._
 
 import com.rumblesan.fungus.Types._
 import com.rumblesan.fungus.util.Directions._
+import com.rumblesan.fungus.util.GridCoord
 
-case class Cursor(x: Int, y: Int)
+
+case class Cursor(coords: GridCoord)
 
 object Cursor {
 
@@ -15,10 +17,10 @@ object Cursor {
     val vm = f.vm
     val cursor = f.cursor
     val (tX, tY) = direction match {
-      case MoveUp    => (cursor.x,     cursor.y - 1)
-      case MoveDown  => (cursor.x,     cursor.y + 1)
-      case MoveLeft  => (cursor.x - 1, cursor.y    )
-      case MoveRight => (cursor.x + 1, cursor.y    )
+      case MoveUp    => (cursor.coords.x,     cursor.coords.y - 1)
+      case MoveDown  => (cursor.coords.x,     cursor.coords.y + 1)
+      case MoveLeft  => (cursor.coords.x - 1, cursor.coords.y    )
+      case MoveRight => (cursor.coords.x + 1, cursor.coords.y    )
     }
     val xMin = 0
     val yMin = 0
@@ -31,7 +33,7 @@ object Cursor {
     val newY = if      (tY <  yMin) (tY + yMax)
                else if (tY >= yMax) (tY - yMax)
                else                  tY
-    f.copy(cursor = Cursor(newX, newY))
+    f.copy(cursor = Cursor(GridCoord(newX, newY)))
   }
 
 }

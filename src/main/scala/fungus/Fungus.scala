@@ -12,6 +12,7 @@ import com.rumblesan.fungus.befunge.Types._
 import com.rumblesan.fungus.befunge._
 import com.rumblesan.fungus.Types._
 import com.rumblesan.fungus.util.Directions._
+import com.rumblesan.fungus.util.GridCoord
 
 
 class Fungus extends PApplet {
@@ -37,7 +38,7 @@ class Fungus extends PApplet {
       case LeftKey  => Cursor.moveCursor(MoveLeft)
       case _        => ().point[FungusState]
     }).exec(f)
-  }, FungusMachine(VM(gridXSize, gridYSize), Cursor(0, 0)))
+  }, FungusMachine(VM(gridXSize, gridYSize), Cursor(GridCoord(0, 0))))
 
 
   override def setup {
