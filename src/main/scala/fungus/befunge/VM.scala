@@ -3,6 +3,7 @@ package com.rumblesan.fungus.befunge
 import scalaz._, Scalaz._
 
 import Types._
+import com.rumblesan.fungus.util.Directions._
 
 
 case class VM(
@@ -17,7 +18,7 @@ object VM {
 
   def apply(xVal: Int, yVal: Int): VM = {
     VM(
-      Counter(0, 0, East),
+      Counter(0, 0, MoveRight),
       Vector.fill[Instruction](xVal, yVal)(NOP),
       List.empty[Integer],
       xVal,
@@ -35,10 +36,10 @@ object VM {
   def executeInstruction(inst: Instruction): VMState[Unit] = {
     inst match {
 
-      case Up    => Counter.updateCounter(North)
-      case Down  => Counter.updateCounter(South)
-      case Right => Counter.updateCounter(East)
-      case Left  => Counter.updateCounter(West)
+      case Up    => Counter.updateCounter(MoveUp)
+      case Down  => Counter.updateCounter(MoveDown)
+      case Right => Counter.updateCounter(MoveRight)
+      case Left  => Counter.updateCounter(MoveLeft)
 
       case NOP => State.modify(vm => vm)
       case _ => State.modify(vm => vm)
