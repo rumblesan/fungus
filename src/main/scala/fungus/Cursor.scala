@@ -30,7 +30,6 @@ object Cursor {
     val newY = if      (tY <  yMin) (tY + yMax)
                else if (tY >= yMax) (tY - yMax)
                else                  tY
-    println(s"cursor $newX, $newY")
     f.copy(cursor = Cursor(newX, newY))
   }
 
