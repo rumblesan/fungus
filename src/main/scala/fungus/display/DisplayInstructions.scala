@@ -1,7 +1,7 @@
 package com.rumblesan.fungus.display
 
 import scalaz._, Scalaz._
-import processing.core.{ PApplet, PConstants }
+import processing.core.{ PApplet, PConstants, PImage }
 
 import com.rumblesan.fungus.befunge.Types._
 import com.rumblesan.fungus.befunge._

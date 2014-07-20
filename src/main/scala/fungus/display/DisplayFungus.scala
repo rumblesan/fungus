@@ -25,7 +25,7 @@ object DisplayFungus {
         x <- (0 until vm.xSize)
         y <- (0 until vm.ySize)
         (xCoord, yCoord) = cellCoords(config)(x, y)
-        _ = p.rect(xCoord, yCoord, config.cellSize, config.cellSize)
+        _ = DisplayInstructions.drawInstruction(p, config)(xCoord, yCoord)(vm)
       } yield Unit
 
     })
