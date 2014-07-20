@@ -8,12 +8,14 @@ case class Cursor(x: Int, y: Int)
 
 object Cursor {
 
+  // Origin of grid is in top left so y position modifications
+  // need to be switched
   def moveCursor(direction: String): FungusState[Unit] = State.modify { f =>
     val vm = f.vm
     val cursor = f.cursor
     val (tX, tY) = direction match {
-      case "up"    => (cursor.x,     cursor.y + 1)
-      case "down"  => (cursor.x,     cursor.y - 1)
+      case "up"    => (cursor.x,     cursor.y - 1)
+      case "down"  => (cursor.x,     cursor.y + 1)
       case "right" => (cursor.x + 1, cursor.y    )
       case "left"  => (cursor.x - 1, cursor.y    )
     }

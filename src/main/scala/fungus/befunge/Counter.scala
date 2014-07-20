@@ -9,11 +9,13 @@ case class Counter(xPos: Int, yPos: Int, direction: Direction)
 
 object Counter {
 
+  // Origin of grid is in top left so y position modifications
+  // need to be switched
   def moveCounter: VMState[Unit] = State.modify { vm =>
     val counter = vm.counter
     val (tX, tY) = counter.direction match {
-      case North => (counter.xPos,     counter.yPos + 1)
-      case South => (counter.xPos,     counter.yPos - 1)
+      case North => (counter.xPos,     counter.yPos - 1)
+      case South => (counter.xPos,     counter.yPos + 1)
       case East  => (counter.xPos + 1, counter.yPos    )
       case West  => (counter.xPos - 1, counter.yPos    )
     }
