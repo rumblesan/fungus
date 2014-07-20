@@ -6,9 +6,10 @@ import processing.core.PApplet
 import processing.core.PConstants._
 
 import com.rumblesan.reaktor._
-import com.rumblesan.fungus.display.{ DisplayFungus, DrawingConfig }
-import com.rumblesan.fungus.befunge.{ VM, Pointer }
+import com.rumblesan.fungus.display.{ DisplayFungus, DrawingConfig, DisplayInstructions }
+import com.rumblesan.fungus.befunge.{ VM, Pointer, Grid }
 import com.rumblesan.fungus.befunge.Types._
+import com.rumblesan.fungus.befunge._
 import com.rumblesan.fungus.Types._
 import com.rumblesan.fungus.util.Directions._
 
@@ -24,7 +25,8 @@ class Fungus extends PApplet {
   val drawingConfig = DrawingConfig(
     gridCellSize,
     (screenWidth - (gridXSize * gridCellSize)) / 2,
-    (screenHeight - (gridYSize * gridCellSize)) / 2
+    (screenHeight - (gridYSize * gridCellSize)) / 2,
+    DisplayInstructions.loadInstructionTiles(this)
   )
 
   val vmStateSink = StateSink[KeyPress, FungusMachine]((f, k) => {
