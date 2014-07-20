@@ -5,6 +5,7 @@ import processing.core.{ PApplet, PImage }
 
 import com.rumblesan.fungus.befunge.Types._
 import com.rumblesan.fungus.befunge._
+import com.rumblesan.fungus.util.GridCoord
 
 
 object DisplayInstructions {
@@ -19,9 +20,9 @@ object DisplayInstructions {
   def drawInstruction(
     p: PApplet, config: DrawingConfig
   )(
-    xPos: Int, yPos: Int, xCoord: Int, yCoord: Int
+    gridCoords: GridCoord, xCoord: Int, yCoord: Int
   ): VMState[Unit] = {
-    Grid.getGridCell(xPos, yPos).map( i =>
+    Grid.getGridCell(gridCoords).map( i =>
       i match {
         case Up    => p.image(config.instructionTiles(Up), xCoord, yCoord)
         case Down  => p.image(config.instructionTiles(Down), xCoord, yCoord)

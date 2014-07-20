@@ -4,9 +4,10 @@ import scalaz._, Scalaz._
 
 import com.rumblesan.fungus.befunge.Types._
 import com.rumblesan.fungus.util.Directions._
+import com.rumblesan.fungus.util.GridCoord
 
 
-case class Pointer(xPos: Int, yPos: Int, direction: Direction)
+case class Pointer(coords: GridCoord, direction: Direction)
 
 object Pointer {
 
@@ -15,10 +16,10 @@ object Pointer {
   def movePointer: VMState[Unit] = State.modify { vm =>
     val pointer = vm.pointer
     val (tX, tY) = pointer.direction match {
-      case MoveUp    => (pointer.xPos,     pointer.yPos - 1)
-      case MoveDown  => (pointer.xPos,     pointer.yPos + 1)
-      case MoveLeft  => (pointer.xPos - 1, pointer.yPos    )
-      case MoveRight => (pointer.xPos + 1, pointer.yPos    )
+      case MoveUp    => (pointer.coords.x,     pointer.coords.y - 1)
+      case MoveDown  => (pointer.coords.x,     pointer.coords.y + 1)
+      case MoveLeft  => (pointer.coords.x - 1, pointer.coords.y    )
+      case MoveRight => (pointer.coords.x + 1, pointer.coords.y    )
     }
     val xMin = 0
     val yMin = 0
@@ -31,7 +32,7 @@ object Pointer {
     val newY = if      (tY <  yMin) (tY + yMax)
                else if (tY >= yMax) (tY - yMax)
                else                  tY
-    vm.copy(pointer = Pointer(newX, newY, pointer.direction))
+    vm.copy(pointer = Pointer(GridCoord(newX, newY), pointer.direction))
   }
 
   def updatePointer(newDirection: Direction): VMState[Unit] = State.modify { vm =>

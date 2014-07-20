@@ -4,6 +4,7 @@ import scalaz._, Scalaz._
 
 import Types._
 import com.rumblesan.fungus.util.Directions._
+import com.rumblesan.fungus.util.GridCoord
 
 
 case class VM(
@@ -18,7 +19,7 @@ object VM {
 
   def apply(xVal: Int, yVal: Int): VM = {
     VM(
-      Pointer(0, 0, MoveRight),
+      Pointer(GridCoord(0, 0), MoveRight),
       Vector.fill[Instruction](xVal, yVal)(NOP),
       List.empty[Integer],
       xVal,
@@ -29,7 +30,7 @@ object VM {
   def getInstruction: VMState[Instruction] = {
     for {
       vm <- State.get
-      instruction <- Grid.getGridCell(vm.pointer.xPos, vm.pointer.yPos)
+      instruction <- Grid.getGridCell(vm.pointer.coords)
     } yield instruction
   }
 

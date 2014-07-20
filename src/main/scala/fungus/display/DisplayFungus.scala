@@ -6,6 +6,8 @@ import processing.core.{ PApplet, PConstants }
 import com.rumblesan.fungus.befunge.{ VM }
 import com.rumblesan.fungus.{ FungusMachine }
 import com.rumblesan.fungus.Types._
+import com.rumblesan.fungus.util.GridCoord
+
 
 object DisplayFungus {
 
@@ -25,7 +27,7 @@ object DisplayFungus {
         x <- (0 until vm.xSize)
         y <- (0 until vm.ySize)
         (xCoord, yCoord) = cellCoords(config)(x, y)
-        _ = DisplayInstructions.drawInstruction(p, config)(x, y, xCoord, yCoord)(vm)
+        _ = DisplayInstructions.drawInstruction(p, config)(GridCoord(x, y), xCoord, yCoord)(vm)
       } yield Unit
 
     })
