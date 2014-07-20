@@ -10,6 +10,7 @@ import com.rumblesan.fungus.display.{ DisplayFungus, DrawingConfig }
 import com.rumblesan.fungus.befunge.{ VM, Counter }
 import com.rumblesan.fungus.befunge.Types._
 import com.rumblesan.fungus.Types._
+import com.rumblesan.fungus.util.Directions._
 
 
 class Fungus extends PApplet {
@@ -28,10 +29,10 @@ class Fungus extends PApplet {
 
   val vmStateSink = StateSink[KeyPress, FungusMachine]((f, k) => {
     (k match {
-      case UpKey    => Cursor.moveCursor("up")
-      case DownKey  => Cursor.moveCursor("down")
-      case RightKey => Cursor.moveCursor("right")
-      case LeftKey  => Cursor.moveCursor("left")
+      case UpKey    => Cursor.moveCursor(MoveUp)
+      case DownKey  => Cursor.moveCursor(MoveDown)
+      case RightKey => Cursor.moveCursor(MoveRight)
+      case LeftKey  => Cursor.moveCursor(MoveLeft)
       case _        => ().point[FungusState]
     }).exec(f)
   }, FungusMachine(VM(gridXSize, gridYSize), Cursor(0, 0)))

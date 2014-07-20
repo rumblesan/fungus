@@ -2,7 +2,8 @@ package com.rumblesan.fungus
 
 import scalaz._, Scalaz._
 
-import Types._
+import com.rumblesan.fungus.Types._
+import com.rumblesan.fungus.util.Directions._
 
 case class Cursor(x: Int, y: Int)
 
@@ -10,14 +11,14 @@ object Cursor {
 
   // Origin of grid is in top left so y position modifications
   // need to be switched
-  def moveCursor(direction: String): FungusState[Unit] = State.modify { f =>
+  def moveCursor(direction: Direction): FungusState[Unit] = State.modify { f =>
     val vm = f.vm
     val cursor = f.cursor
     val (tX, tY) = direction match {
-      case "up"    => (cursor.x,     cursor.y - 1)
-      case "down"  => (cursor.x,     cursor.y + 1)
-      case "right" => (cursor.x + 1, cursor.y    )
-      case "left"  => (cursor.x - 1, cursor.y    )
+      case MoveUp    => (cursor.x,     cursor.y - 1)
+      case MoveDown  => (cursor.x,     cursor.y + 1)
+      case MoveLeft  => (cursor.x + 1, cursor.y    )
+      case MoveRight => (cursor.x - 1, cursor.y    )
     }
     val xMin = 0
     val yMin = 0
