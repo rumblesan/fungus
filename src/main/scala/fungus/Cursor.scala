@@ -21,13 +21,14 @@ object Cursor {
     val yMin = 0
     val xMax = vm.xSize
     val yMax = vm.ySize
-    val newX = if      (tX < xMin) (tX + xMax)
-               else if (tX > xMax) (tX - xMax)
-               else                 tX
+    val newX = if      (tX <  xMin) (tX + xMax)
+               else if (tX >= xMax) (tX - xMax)
+               else                  tX
 
-    val newY = if      (tY < yMin) (tY + yMax)
-               else if (tY > yMax) (tY - yMax)
-               else                 tY
+    val newY = if      (tY <  yMin) (tY + yMax)
+               else if (tY >= yMax) (tY - yMax)
+               else                  tY
+    println(s"cursor $newX, $newY")
     f.copy(cursor = Cursor(newX, newY))
   }
 
