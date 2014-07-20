@@ -19,16 +19,16 @@ object DisplayInstructions {
   def drawInstruction(
     p: PApplet, config: DrawingConfig
   )(
-    xPos: Int, yPos: Int
+    xPos: Int, yPos: Int, xCoord: Int, yCoord: Int
   ): VMState[Unit] = {
     Grid.getGridCell(xPos, yPos).map( i =>
       i match {
-        case Up    => p.rect(xPos, yPos, config.cellSize, config.cellSize)
-        case Down  => p.rect(xPos, yPos, config.cellSize, config.cellSize)
-        case Left  => p.rect(xPos, yPos, config.cellSize, config.cellSize)
-        case Right => p.rect(xPos, yPos, config.cellSize, config.cellSize)
-        case NOP   => p.rect(xPos, yPos, config.cellSize, config.cellSize)
-        case _     => p.rect(xPos, yPos, config.cellSize, config.cellSize)
+        case Up    => p.image(config.instructionTiles(Up), xCoord, yCoord)
+        case Down  => p.image(config.instructionTiles(Down), xCoord, yCoord)
+        case Left  => p.image(config.instructionTiles(Left), xCoord, yCoord)
+        case Right => p.image(config.instructionTiles(Right), xCoord, yCoord)
+        case NOP   => p.rect(xCoord, yCoord, config.cellSize, config.cellSize)
+        case _     => p.rect(xCoord, yCoord, config.cellSize, config.cellSize)
       }
     )
   }
