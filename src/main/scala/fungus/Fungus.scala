@@ -19,7 +19,7 @@ class Fungus extends PApplet {
   val gridYSize    = 10
   val screenWidth  = 1024
   val screenHeight = 768
-  val gridCellSize = 14
+  val gridCellSize = 20
 
   val drawingConfig = DrawingConfig(
     gridCellSize,
