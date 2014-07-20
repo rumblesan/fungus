@@ -5,7 +5,7 @@ import processing.core.{ PApplet, PImage }
 
 import com.rumblesan.fungus.befunge.Types._
 import com.rumblesan.fungus.befunge._
-import com.rumblesan.fungus.util.GridCoord
+import com.rumblesan.fungus.util.{ GridCoord, CanvasCoord }
 
 
 object DisplayInstructions {
@@ -20,16 +20,16 @@ object DisplayInstructions {
   def drawInstruction(
     p: PApplet, config: DrawingConfig
   )(
-    gridCoords: GridCoord, xCoord: Int, yCoord: Int
+    gridCoords: GridCoord, canvasCoords: CanvasCoord
   ): VMState[Unit] = {
     Grid.getGridCell(gridCoords).map( i =>
       i match {
-        case Up    => p.image(config.instructionTiles(Up), xCoord, yCoord)
-        case Down  => p.image(config.instructionTiles(Down), xCoord, yCoord)
-        case Left  => p.image(config.instructionTiles(Left), xCoord, yCoord)
-        case Right => p.image(config.instructionTiles(Right), xCoord, yCoord)
-        case NOP   => p.rect(xCoord, yCoord, config.cellSize, config.cellSize)
-        case _     => p.rect(xCoord, yCoord, config.cellSize, config.cellSize)
+        case Up    => p.image(config.instructionTiles(Up), canvasCoords.x, canvasCoords.y)
+        case Down  => p.image(config.instructionTiles(Down), canvasCoords.x, canvasCoords.y)
+        case Left  => p.image(config.instructionTiles(Left), canvasCoords.x, canvasCoords.y)
+        case Right => p.image(config.instructionTiles(Right), canvasCoords.x, canvasCoords.y)
+        case NOP   => p.rect(canvasCoords.x, canvasCoords.y, config.cellSize, config.cellSize)
+        case _     => p.rect(canvasCoords.x, canvasCoords.y, config.cellSize, config.cellSize)
       }
     )
   }

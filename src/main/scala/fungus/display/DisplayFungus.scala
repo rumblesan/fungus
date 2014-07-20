@@ -6,7 +6,7 @@ import processing.core.{ PApplet, PConstants }
 import com.rumblesan.fungus.befunge.{ VM }
 import com.rumblesan.fungus.{ FungusMachine }
 import com.rumblesan.fungus.Types._
-import com.rumblesan.fungus.util.GridCoord
+import com.rumblesan.fungus.util.{ GridCoord, CanvasCoord }
 
 
 object DisplayFungus {
@@ -26,8 +26,9 @@ object DisplayFungus {
       for {
         x <- (0 until vm.xSize)
         y <- (0 until vm.ySize)
-        (xCoord, yCoord) = cellCoords(config)(x, y)
-        _ = DisplayInstructions.drawInstruction(p, config)(GridCoord(x, y), xCoord, yCoord)(vm)
+        gridCoords = GridCoord(x, y)
+        canvasCoords = calculateCanvasCoords(config)(gridCoords)
+        _ = DisplayInstructions.drawInstruction(p, config)(gridCoords, canvasCoords)(vm)
       } yield Unit
 
     })
@@ -40,16 +41,16 @@ object DisplayFungus {
 
       val cursor = f.cursor
       p.fill(255, 50, 50)
-      val (cursorX, cursorY) = cellCoords(config)(f.cursor.x, f.cursor.y)
-      p.rect(cursorX, cursorY, config.cellSize, config.cellSize)
+      val canvasCoords = calculateCanvasCoords(config)(GridCoord(f.cursor.x, f.cursor.y))
+      p.rect(canvasCoords.x, canvasCoords.y, config.cellSize, config.cellSize)
 
     })
   }
 
-  def cellCoords(config: DrawingConfig)(xVal: Int, yVal: Int): (Int, Int) = {
-    (
-      config.xPadding + (xVal * config.cellSize),
-      config.yPadding + (yVal * config.cellSize)
+  def calculateCanvasCoords(config: DrawingConfig)(gridCoords: GridCoord): CanvasCoord = {
+    CanvasCoord(
+      config.xPadding + (gridCoords.x * config.cellSize),
+      config.yPadding + (gridCoords.y * config.cellSize)
     )
   }
 
