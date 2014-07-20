@@ -17,8 +17,8 @@ object Cursor {
     val (tX, tY) = direction match {
       case MoveUp    => (cursor.x,     cursor.y - 1)
       case MoveDown  => (cursor.x,     cursor.y + 1)
-      case MoveLeft  => (cursor.x + 1, cursor.y    )
-      case MoveRight => (cursor.x - 1, cursor.y    )
+      case MoveLeft  => (cursor.x - 1, cursor.y    )
+      case MoveRight => (cursor.x + 1, cursor.y    )
     }
     val xMin = 0
     val yMin = 0

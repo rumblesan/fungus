@@ -17,8 +17,8 @@ object Pointer {
     val (tX, tY) = pointer.direction match {
       case MoveUp    => (pointer.xPos,     pointer.yPos - 1)
       case MoveDown  => (pointer.xPos,     pointer.yPos + 1)
-      case MoveLeft  => (pointer.xPos + 1, pointer.yPos    )
-      case MoveRight => (pointer.xPos - 1, pointer.yPos    )
+      case MoveLeft  => (pointer.xPos - 1, pointer.yPos    )
+      case MoveRight => (pointer.xPos + 1, pointer.yPos    )
     }
     val xMin = 0
     val yMin = 0
