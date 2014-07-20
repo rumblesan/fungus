@@ -7,7 +7,7 @@ import processing.core.PConstants._
 
 import com.rumblesan.reaktor._
 import com.rumblesan.fungus.display.{ DisplayFungus, DrawingConfig }
-import com.rumblesan.fungus.befunge.{ VM, Counter }
+import com.rumblesan.fungus.befunge.{ VM, Pointer }
 import com.rumblesan.fungus.befunge.Types._
 import com.rumblesan.fungus.Types._
 import com.rumblesan.fungus.util.Directions._
