@@ -13,6 +13,7 @@ import com.rumblesan.fungus.befunge._
 import com.rumblesan.fungus.Types._
 import com.rumblesan.fungus.util.Directions._
 import com.rumblesan.fungus.util.GridCoord
+import com.rumblesan.fungus.events._
 
 
 class Fungus extends PApplet {
@@ -30,16 +31,14 @@ class Fungus extends PApplet {
     DisplayInstructions.loadInstructionTiles(this)
   )
 
-  val vmStateSink = StateSink[KeyPress, FungusMachine]((f, k) => {
-    (k match {
-      case UpKey    => Cursor.moveCursor(MoveUp)
-      case DownKey  => Cursor.moveCursor(MoveDown)
-      case RightKey => Cursor.moveCursor(MoveRight)
-      case LeftKey  => Cursor.moveCursor(MoveLeft)
-      case _        => ().point[FungusState]
-    }).exec(f)
-  }, FungusMachine(VM(gridXSize, gridYSize), Cursor(GridCoord(0, 0))))
+  val vmStateSink = FungusEventSystem.vmStateSink(
+    FungusMachine(
+      VM(gridXSize, gridYSize),
+      Cursor(GridCoord(0, 0))
+    )
+  )
 
+  val eventSystem = FungusEventSystem(vmStateSink)
 
   override def setup {
     size(screenWidth, screenHeight)
@@ -57,7 +56,7 @@ class Fungus extends PApplet {
   }
 
   override def keyPressed {
-    vmStateSink(
+    eventSystem(
       if (key == CODED) {
              if (keyCode == UP   ) UpKey
         else if (keyCode == DOWN ) DownKey
@@ -65,9 +64,10 @@ class Fungus extends PApplet {
         else if (keyCode == RIGHT) RightKey
         else                       UnknownKey
       } else {
-        UnknownKey
+        LetterKey(key)
       }
     )
+
   }
 
 }
