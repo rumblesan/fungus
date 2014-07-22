@@ -26,25 +26,10 @@ object FungusEventSystem {
 
   def apply(vmStateSink: StateStream[FungusEvent, FungusMachine, Nothing]) = {
 
-    val insertModeAggregator = StateStream(
+    StateStream(
       InsertMode.stateMachine,
       InsertModeState(false),
       vmStateSink.apply
-    )
-
-    val cursorMovementEventStream = vmStateSink.push[KeyPress](key => {
-      key match {
-        case UpKey    => MoveCursorUp
-        case DownKey  => MoveCursorDown
-        case LeftKey  => MoveCursorLeft
-        case RightKey => MoveCursorRight
-        case _        => NoEvent
-      }
-    })
-
-    EventStreamOps.fanOut(
-      insertModeAggregator,
-      cursorMovementEventStream
     )
 
   }

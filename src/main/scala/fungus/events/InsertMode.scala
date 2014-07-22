@@ -21,6 +21,10 @@ object InsertMode {
       case InsertModeState(false) => {
         k match {
           case LetterKey('i') => (s.copy(insert = true), None)
+          case LetterKey('k') => (s, Some(MoveCursorUp))
+          case LetterKey('j') => (s, Some(MoveCursorDown))
+          case LetterKey('h') => (s, Some(MoveCursorLeft))
+          case LetterKey('l') => (s, Some(MoveCursorRight))
           case _              => (s, None)
         }
       }
