@@ -21,3 +21,6 @@ scalacOptions ++= Seq("-unchecked", "-deprecation", "-language:_")
 
 resolvers ++= Seq("snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
                   "releases"  at "http://oss.sonatype.org/content/repositories/releases")
+
+fork in run := true
+
